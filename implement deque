@@ -1,0 +1,115 @@
+#include <bits/stdc++.h> 
+class Deque
+{
+    int *arr;
+    int r;
+    int f;
+    int size;
+public:
+    // Initialize your data structure.
+    
+    Deque(int n)
+    {
+        size=n;
+        arr=new int[size];
+        f=-1;
+        r=-1;
+        
+    }
+
+    // Pushes 'X' in the f of the deque. Returns true if it gets pushed into the deque, and false otherwise.
+    bool pushFront(int x)
+    {
+        if(isFull())
+        return false;
+        if(f==-1)
+        {
+            f=0;
+            r=0;
+        }
+        else {
+          f = (f - 1 + size) % size;
+        }
+        arr[f]=x;
+        return true;
+    }
+
+    // Pushes 'X' in the back of the deque. Returns true if it gets pushed into the deque, and false otherwise.
+    bool pushRear(int x)
+    {
+        if(isFull())
+        return false;
+        if(f==-1)
+        {
+            f=0;
+        }
+        r=(r+1)%size;
+        arr[r]=x;
+        return true;
+    }
+
+    // Pops an element from the f of the deque. Returns -1 if the deque is empty, otherwise returns the popped element.
+    int popFront()
+    {
+        int x;
+        if(isEmpty())
+        return -1;
+        x=arr[f];
+        if(f==r)
+        {
+            f=-1;
+            r=-1;
+        }
+        else
+        f=(f+1)%size;
+        return x;
+    }
+
+    // Pops an element from the back of the deque. Returns -1 if the deque is empty, otherwise returns the popped element.
+    int popRear()
+    {
+        int x;
+        if(isEmpty())
+        return -1;
+        x=arr[r];
+        if(f==r)
+        {
+            f=r=-1;
+        }
+        else
+        r=(r-1+size)%size;
+        return x;
+    }
+
+    // Returns the first element of the deque. If the deque is empty, it returns -1.
+    int getFront()
+    {
+        if(isEmpty())
+        return -1;
+        return arr[f];
+    }
+
+    // Returns the last element of the deque. If the deque is empty, it returns -1.
+    int getRear()
+    {
+        if(isEmpty())
+        return -1;
+        return arr[r];
+    }
+
+    // Returns true if the deque is empty. Otherwise returns false.
+    bool isEmpty()
+    {
+        if(r==-1 && f==-1)
+        return true;
+        return false;
+    }
+
+    // Returns true if the deque is full. Otherwise returns false.
+    bool isFull()
+    {
+        if((r+1)%size==f)
+        return true;
+        return false;
+    }
+};
